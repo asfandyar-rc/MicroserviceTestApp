@@ -1,5 +1,6 @@
 using Identity.WebApi.Models;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
@@ -31,18 +32,24 @@ namespace Identity.WebApi.Controllers
                 IActionResult response = Unauthorized();
                 if (user != null)
                 {
-                    if (user.UserName.Equals("asfand@gmail.com") && user.Password.Equals("test123"))
+                    var Allusers = user.AllUsers();
+                    var isValidated = Allusers.Any(x => x.UserName.Equals(user.UserName) && x.Password.Equals(user.Password));
+                    if (isValidated)
                     {
                         var issuer = _configuration["Jwt:Issuer"];
                         var audience = _configuration["Jwt:Audience"];
                         var key = Encoding.UTF8.GetBytes(_configuration["Jwt:Key"]);
+
                         var signingCredentials = new SigningCredentials(
                                                 new SymmetricSecurityKey(key),
                                                 SecurityAlgorithms.HmacSha512Signature);
+
                         var subject = new ClaimsIdentity(new[]{
                             new Claim(JwtRegisteredClaimNames.Sub, user.UserName),
                             new Claim(JwtRegisteredClaimNames.Email, user.UserName),});
+
                         var expires = DateTime.UtcNow.AddMinutes(10);
+
                         var tokenDescriptor = new SecurityTokenDescriptor
                         {
                             Subject = subject,
@@ -51,9 +58,11 @@ namespace Identity.WebApi.Controllers
                             Audience = audience,
                             SigningCredentials = signingCredentials
                         };
+
                         var tokenHandler = new JwtSecurityTokenHandler();
                         var token = tokenHandler.CreateToken(tokenDescriptor);
                         var jwtToken = tokenHandler.WriteToken(token);
+
                         return Ok(jwtToken);
                     }
 
@@ -63,7 +72,7 @@ namespace Identity.WebApi.Controllers
             catch (Exception ex)
             {
 
-                throw ex;
+                throw new Exception("User not Authenticated. Please try again!");
             }
         }
     }
