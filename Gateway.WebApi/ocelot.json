@@ -1,7 +1,7 @@
 {
   "ReRoutes": [
     {
-      "DownstreamPathTemplate": "/Account",
+      "DownstreamPathTemplate": "/api/Account",
       "DownstreamScheme": "https",
       "DownstreamHostAndPorts": [
         {
@@ -13,7 +13,7 @@
       "UpstreamHttpMethod": [ "GET", "PUT", "POST" ]
     },
     {
-      "DownstreamPathTemplate": "/User",
+      "DownstreamPathTemplate": "/api/User",
       "DownstreamScheme": "https",
       "DownstreamHostAndPorts": [
         {
