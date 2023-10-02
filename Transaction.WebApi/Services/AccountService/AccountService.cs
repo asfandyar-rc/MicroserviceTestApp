@@ -1,24 +1,27 @@
-﻿using System.Data;
+﻿using AutoMapper;
+using System.Data;
+using Transaction.WebApi.Dto.Account;
 using Transaction.WebApi.Models;
 
 namespace Transaction.WebApi.Services.AccountService
 {
     public class AccountService : IAccountService
     {
-        private readonly TransactionDbContext _dbContext;
-        private readonly ILogger _logger;
-        public AccountService(TransactionDbContext dbContext, ILogger logger)
+        //private readonly TransactionDbContext _dbContext;
+        private readonly IMapper _mapper;
+        public AccountService( IMapper mapper)
         {
-            _dbContext = dbContext;
-            _logger = logger;
+            //_dbContext = dbContext;
+            _mapper = mapper;
         }
-        public async Task<decimal> GetBalance(int AccountNumber)
+
+        public async Task<ViewBalanceDto> GetBalance(int AccountNumber)
         {
             try
             {
-                _logger.LogInformation("Get Balance Method requested with Account Number: " + AccountNumber);
-                var accountSummary= _dbContext.AccountSummaries.FirstOrDefault(x=>x.AccountNumber == AccountNumber);
-                return await Task.FromResult(accountSummary.Balance);
+                TransactionDbContext _dbContext = new TransactionDbContext();
+                var accountSummary = _dbContext.AccountSummaries.FirstOrDefault(x => x.AccountNumber == AccountNumber);
+                return _mapper.Map<ViewBalanceDto>(accountSummary);
             }
             catch (Exception)
             {

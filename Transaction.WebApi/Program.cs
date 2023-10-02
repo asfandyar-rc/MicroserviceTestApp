@@ -31,8 +31,8 @@ builder.Services.AddAuthorization();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
-builder.Services.AddTransient<IAccountService, AccountService>();
-
+builder.Services.AddAutoMapper(typeof(Program));
+builder.Services.AddSingleton<IAccountService, AccountService>();
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.

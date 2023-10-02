@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Transaction.WebApi.Dto.Account;
 using Transaction.WebApi.Services.AccountService;
 
 namespace Transaction.WebApi.Controllers
@@ -20,7 +21,7 @@ namespace Transaction.WebApi.Controllers
 
         [HttpGet]
         [Route("api/account/balance")]
-        public async Task<ActionResult<decimal>> balance(int accountNumber)
+        public async Task<ActionResult<ViewBalanceDto>> balance(int accountNumber)
         {
             var result = await _transactionService.GetBalance(accountNumber);
             return result;
