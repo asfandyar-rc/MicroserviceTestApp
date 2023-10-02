@@ -1,6 +1,6 @@
 ﻿using System.Text.Json;
 
-namespace Transaction.WebApi.Models
+namespace Transaction.WebApi.Models.Other
 {
     public class ErrorDetails
     {

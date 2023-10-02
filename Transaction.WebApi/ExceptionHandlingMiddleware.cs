@@ -5,7 +5,7 @@ using Microsoft.Extensions.Logging;
 using System;
 using System.Net;
 using System.Threading.Tasks;
-using Transaction.WebApi.Models;
+using Transaction.WebApi.Models.Other;
 using static System.Net.Mime.MediaTypeNames;
 
 namespace Transaction.WebApi

@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using System.Diagnostics;
+using Transaction.WebApi.Models.Account;
 
 namespace Transaction.WebApi.Models
 {
@@ -22,7 +23,8 @@ namespace Transaction.WebApi.Models
                     Balance = 500,
                     Currency = "USD"
                 },
-                new AccountSummary {
+                new AccountSummary
+                {
 
                     id = Guid.NewGuid(),
                     AccountNumber = 1002,

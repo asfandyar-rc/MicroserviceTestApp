@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using Transaction.WebApi.Models.Enums;
 using System.ComponentModel.DataAnnotations;
 
-namespace Transaction.WebApi.Models
+namespace Transaction.WebApi.Models.Account
 {
     public class AccountTransaction
     {
