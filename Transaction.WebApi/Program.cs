@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
 using Transaction.WebApi;
+using Transaction.WebApi.Models;
 using Transaction.WebApi.Services.AccountService;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -32,7 +33,9 @@ builder.Services.AddAuthorization();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddAutoMapper(typeof(Program));
-builder.Services.AddSingleton<IAccountService, AccountService>();
+builder.Services.AddTransient<IAccountService, AccountService>();
+builder.Services.AddTransient<TransactionDbContext>();
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.

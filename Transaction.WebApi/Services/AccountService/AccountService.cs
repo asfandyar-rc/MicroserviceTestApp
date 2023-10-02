@@ -7,11 +7,11 @@ namespace Transaction.WebApi.Services.AccountService
 {
     public class AccountService : IAccountService
     {
-        //private readonly TransactionDbContext _dbContext;
+        private readonly TransactionDbContext _dbContext;
         private readonly IMapper _mapper;
-        public AccountService( IMapper mapper)
+        public AccountService( IMapper mapper, TransactionDbContext dbContext)
         {
-            //_dbContext = dbContext;
+            _dbContext = dbContext;
             _mapper = mapper;
         }
 
@@ -19,7 +19,6 @@ namespace Transaction.WebApi.Services.AccountService
         {
             try
             {
-                TransactionDbContext _dbContext = new TransactionDbContext();
                 var accountSummary = _dbContext.AccountSummaries.FirstOrDefault(x => x.AccountNumber == AccountNumber);
                 return _mapper.Map<ViewBalanceDto>(accountSummary);
             }
