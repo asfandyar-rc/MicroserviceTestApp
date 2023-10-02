@@ -4,7 +4,7 @@ using Transaction.WebApi.Services.Interface;
 
 namespace Transaction.WebApi.Controllers
 {
-    //[Authorize]
+    [Authorize]
     [ApiController]
     public class AccountController : ControllerBase
     {
