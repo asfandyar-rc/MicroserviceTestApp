@@ -1,6 +1,6 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Transaction.WebApi.Services.Interface;
+using Transaction.WebApi.Services.AccountService;
 
 namespace Transaction.WebApi.Controllers
 {
@@ -10,9 +10,9 @@ namespace Transaction.WebApi.Controllers
     {
 
         private readonly ILogger<AccountController> _logger;
-        private readonly ITransactionService _transactionService;
+        private readonly IAccountService _transactionService;
 
-        public AccountController(ILogger<AccountController> logger, ITransactionService transactionService)
+        public AccountController(ILogger<AccountController> logger, IAccountService transactionService)
         {
             _logger = logger;
             _transactionService = transactionService;

@@ -1,15 +1,14 @@
 ﻿using Transaction.WebApi.Models;
-using Transaction.WebApi.Services.Interface;
 
-namespace Transaction.WebApi.Services
+namespace Transaction.WebApi.Services.AccountService
 {
-    public class TransactionService : ITransactionService
+    public class AccountService : IAccountService
     {
-        public async Task<decimal>  GetBalance(int AccountNumber)
+        public async Task<decimal> GetBalance(int AccountNumber)
         {
             try
             {
-                return 0.0M ;
+                return 0.0M;
             }
             catch (Exception)
             {
@@ -17,7 +16,7 @@ namespace Transaction.WebApi.Services
             }
         }
 
-        public async Task<bool> Deposit(int AccountNumber, decimal Amount, String Description)
+        public async Task<bool> Deposit(int AccountNumber, decimal Amount, string Description)
         {
             try
             {
@@ -29,7 +28,7 @@ namespace Transaction.WebApi.Services
             }
         }
 
-        public async Task<bool> Withdraw(int AccountNumber, decimal Amount, String Description)
+        public async Task<bool> Withdraw(int AccountNumber, decimal Amount, string Description)
         {
             try
             {

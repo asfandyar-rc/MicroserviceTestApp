@@ -2,8 +2,7 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
 using Transaction.WebApi;
-using Transaction.WebApi.Services;
-using Transaction.WebApi.Services.Interface;
+using Transaction.WebApi.Services.AccountService;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -32,7 +31,7 @@ builder.Services.AddAuthorization();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
-builder.Services.AddTransient<ITransactionService, TransactionService>();
+builder.Services.AddTransient<IAccountService, AccountService>();
 
 var app = builder.Build();
 
