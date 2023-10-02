@@ -1,7 +1,7 @@
 {
   "ReRoutes": [
     {
-      "DownstreamPathTemplate": "/api/Account",
+      "DownstreamPathTemplate": "/api/account/{everything}",
       "DownstreamScheme": "https",
       "DownstreamHostAndPorts": [
         {
@@ -9,11 +9,11 @@
           "Port": 7090
         }
       ],
-      "UpstreamPathTemplate": "/account",
-      "UpstreamHttpMethod": [ "GET", "PUT", "POST" ]
+      "UpstreamPathTemplate": "/account/{everything}",
+      "UpstreamHttpMethod": [ "GET", "POST" ]
     },
     {
-      "DownstreamPathTemplate": "/api/User",
+      "DownstreamPathTemplate": "/api/user",
       "DownstreamScheme": "https",
       "DownstreamHostAndPorts": [
         {

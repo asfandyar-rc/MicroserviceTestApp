@@ -1,35 +1,45 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Transaction.WebApi.Services.Interface;
 
 namespace Transaction.WebApi.Controllers
 {
+    //[Authorize]
     [ApiController]
-    [Authorize]
-    [Route("api/[controller]")]
     public class AccountController : ControllerBase
     {
-        private static readonly string[] Summaries = new[]
-        {
-        "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching"
-    };
 
         private readonly ILogger<AccountController> _logger;
+        private readonly ITransactionService _transactionService;
 
-        public AccountController(ILogger<AccountController> logger)
+        public AccountController(ILogger<AccountController> logger, ITransactionService transactionService)
         {
             _logger = logger;
+            _transactionService = transactionService;
         }
 
-        [HttpGet(Name = "GetWeatherForecast")]
-        public IEnumerable<WeatherForecast> Get()
+        [HttpGet]
+        [Route("api/account/balance")]
+        public decimal balance(int accountNumber)
         {
-            return Enumerable.Range(1, 5).Select(index => new WeatherForecast
-            {
-                Date = DateTime.Now.AddDays(index),
-                TemperatureC = Random.Shared.Next(-20, 55),
-                Summary = Summaries[Random.Shared.Next(Summaries.Length)]
-            })
-            .ToArray();
+            var result = _transactionService.GetBalance(accountNumber);
+            return result.Result;
+        }
+
+        [HttpPost]
+        [Route("api/account/deposit")]
+        public string deposit(int AccountNumber, decimal Amount, String Description)
+        {
+            var result = _transactionService.Deposit(AccountNumber, Amount, Description);
+            return "Transaction Performed Successfully";
+        }
+
+        [HttpPost]
+        [Route("api/account/withdraw")]
+        public string withdraw(int AccountNumber, decimal Amount, String Description)
+        {
+            var result = _transactionService.Withdraw(AccountNumber, Amount, Description);
+            return "Transaction Performed Successfully";
         }
     }
 }
