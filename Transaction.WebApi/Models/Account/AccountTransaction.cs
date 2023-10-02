@@ -13,7 +13,7 @@ namespace Transaction.WebApi.Models.Account
         public DateTime Date { get; set; }
         public string Description { get; set; }
         public TransactionTypes TransactionType { get; set; }
-        public double Amount { get; set; }
+        public decimal Amount { get; set; }
 
     }
 }

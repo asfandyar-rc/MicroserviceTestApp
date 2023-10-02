@@ -12,6 +12,10 @@ namespace Transaction.WebApi.MappingProfiles
             .ForMember(dest => dest.AccountNumber, opt => opt.MapFrom(src => src.AccountNumber))
             .ForMember(dest => dest.Currency, opt => opt.MapFrom(src => src.Currency))
             .ForMember(dest => dest.Balance, opt => opt.MapFrom(src => src.Balance));
+
+            CreateMap<AddWithdrawTransactionDto, AccountTransaction>();
+            CreateMap<AddDepositTransactionDto, AccountTransaction>();
+
         }    
     }
 }

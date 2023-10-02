@@ -1,3 +1,4 @@
+using Azure;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Transaction.WebApi.Dto.Account;
@@ -23,24 +24,36 @@ namespace Transaction.WebApi.Controllers
         [Route("api/account/balance")]
         public async Task<ActionResult<ViewBalanceDto>> balance(int accountNumber)
         {
-            var result = await _transactionService.GetBalance(accountNumber);
-            return result;
+            var result = await _transactionService.GetBalance(accountNumber); 
+            if (result != null)
+            {
+                return result;
+            }
+            return new StatusCodeResult(404);
         }
 
         [HttpPost]
         [Route("api/account/deposit")]
-        public async Task<ActionResult<string>> deposit(int AccountNumber, decimal Amount, String Description)
+        public async Task<ActionResult<AddDepositTransactionDto>> deposit([FromBody] AddDepositTransactionDto data)
         {
-            var result = await _transactionService.Deposit(AccountNumber, Amount, Description);
-            return "Transaction Performed Successfully";
+            var result = await _transactionService.Deposit(data);
+            if(result != null)
+            {
+                return result;
+            }
+            return new StatusCodeResult(404);
         }
 
         [HttpPost]
         [Route("api/account/withdraw")]
-        public async Task<ActionResult<string>> withdraw(int AccountNumber, decimal Amount, String Description)
+        public async Task<ActionResult<AddWithdrawTransactionDto>> withdraw([FromBody] AddWithdrawTransactionDto data)
         {
-            var result = await _transactionService.Withdraw(AccountNumber, Amount, Description);
-            return "Transaction Performed Successfully";
+            var result = await _transactionService.Withdraw(data);
+            if (result != null)
+            {
+                return result;
+            }
+            return new StatusCodeResult(404);
         }
     }
 }
