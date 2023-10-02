@@ -9,7 +9,7 @@ namespace Transaction.WebApi.Models.Account
 
         [Key]
         public int AccountNumber { get; set; }
-        public double Balance { get; set; }
+        public decimal Balance { get; set; }
         public string Currency { get; set; }
         public IEnumerable<AccountTransaction>? AccountTransactions { get; set; }
     }

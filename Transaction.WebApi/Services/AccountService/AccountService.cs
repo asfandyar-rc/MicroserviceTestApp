@@ -1,14 +1,24 @@
-﻿using Transaction.WebApi.Models;
+﻿using System.Data;
+using Transaction.WebApi.Models;
 
 namespace Transaction.WebApi.Services.AccountService
 {
     public class AccountService : IAccountService
     {
+        private readonly TransactionDbContext _dbContext;
+        private readonly ILogger _logger;
+        public AccountService(TransactionDbContext dbContext, ILogger logger)
+        {
+            _dbContext = dbContext;
+            _logger = logger;
+        }
         public async Task<decimal> GetBalance(int AccountNumber)
         {
             try
             {
-                return 0.0M;
+                _logger.LogInformation("Get Balance Method requested with Account Number: " + AccountNumber);
+                var accountSummary= _dbContext.AccountSummaries.FirstOrDefault(x=>x.AccountNumber == AccountNumber);
+                return await Task.FromResult(accountSummary.Balance);
             }
             catch (Exception)
             {
@@ -20,7 +30,7 @@ namespace Transaction.WebApi.Services.AccountService
         {
             try
             {
-                return true;
+                return await Task.FromResult(true);
             }
             catch (Exception)
             {
