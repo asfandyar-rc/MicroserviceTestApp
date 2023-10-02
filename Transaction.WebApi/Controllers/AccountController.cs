@@ -20,25 +20,25 @@ namespace Transaction.WebApi.Controllers
 
         [HttpGet]
         [Route("api/account/balance")]
-        public decimal balance(int accountNumber)
+        public async Task<ActionResult<decimal>> balance(int accountNumber)
         {
-            var result = _transactionService.GetBalance(accountNumber);
-            return result.Result;
+            var result = await _transactionService.GetBalance(accountNumber);
+            return result;
         }
 
         [HttpPost]
         [Route("api/account/deposit")]
-        public string deposit(int AccountNumber, decimal Amount, String Description)
+        public async Task<ActionResult<string>> deposit(int AccountNumber, decimal Amount, String Description)
         {
-            var result = _transactionService.Deposit(AccountNumber, Amount, Description);
+            var result = await _transactionService.Deposit(AccountNumber, Amount, Description);
             return "Transaction Performed Successfully";
         }
 
         [HttpPost]
         [Route("api/account/withdraw")]
-        public string withdraw(int AccountNumber, decimal Amount, String Description)
+        public async Task<ActionResult<string>> withdraw(int AccountNumber, decimal Amount, String Description)
         {
-            var result = _transactionService.Withdraw(AccountNumber, Amount, Description);
+            var result = await _transactionService.Withdraw(AccountNumber, Amount, Description);
             return "Transaction Performed Successfully";
         }
     }
